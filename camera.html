@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Cam</title>
+    <style>
+        video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <video id="video" autoplay></video>
+    <script type="text/javascript">
+        var video = document.getElementById('video');
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+                const myMediaSource = new MediaSource();
+                const url = URL.createObjectURL(myMediaSource);
+                console.log(url)
+                video.srcObject = stream;
+                video.play();
+                video.webkitEnterFullscreen();
+            });
+        }
+    </script>
+</body>
+
+</html>
